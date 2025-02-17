@@ -1,3 +1,4 @@
+
 const { DataTypes } = require("sequelize");
 const {sequelize} = require("../config/db.js");
 
@@ -33,6 +34,10 @@ const Clinic = sequelize.define(
       type: DataTypes.INTEGER, // Example: 500.00
       allowNull: false,
     },
+    rating:{
+      type:DataTypes.DOUBLE,
+      allowNull:false,
+    }
   },
   {
     tableName: "clinics",

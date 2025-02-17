@@ -8,7 +8,7 @@ const Search = () => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   const searchOptions = [
-    { id: 1, name: 'Cold, Cough', type: 'CONDITION', isClickable: true },
+    { id: 1, name: 'Cold, Cough & Fever', type: 'CONDITION', isClickable: true },
     { id: 2, name: 'Dentist', type: 'SPECIALITY', isClickable: true },
     { id: 3, name: 'Pediatrician', type: 'SPECIALITY' },
     { id: 4, name: 'Dermatologist', type: 'SPECIALITY' },
@@ -39,7 +39,7 @@ const Search = () => {
 
   const handleOptionClick = (option) => {
     if (option.isClickable) {
-      if (option.name === 'Cold, Cough') {
+      if (option.name === 'Cold, Cough & Fever') {
         window.location.replace('http://localhost:5000/list-cough');
       } else if (option.name === 'Dentist') {
         window.location.replace('http://localhost:5000/list-dentist');
@@ -72,8 +72,10 @@ const Search = () => {
 
       <div className="heroSection">
         <div className="heroContent">
+          <div className="head">
           <h1>Your home for health</h1>
           <h2>Find and Book</h2>
+          </div>
           <div className="search-section">
         <div className="location-search">
           <input type="text" placeholder="Bangalore" />

@@ -16,7 +16,7 @@ const ListDentist = () => {
   const [msg,setMsg]=useState('Login / Signup');
 
   const searchOptions = [
-    { id: 1, name: 'Cold, Cough ', type: 'CONDITION', isClickable: true },
+    { id: 1, name: 'Cold, Cough & Fever', type: 'CONDITION', isClickable: true },
     { id: 2, name: 'Dentist', type: 'SPECIALITY', isClickable: true },
     { id: 3, name: 'Pediatrician', type: 'SPECIALITY' },
     { id: 4, name: 'Dermatologist', type: 'SPECIALITY' },
@@ -55,7 +55,7 @@ const ListDentist = () => {
   }, []);
 
   const handleOptionClick = (option) => {
-    if (option.isClickable && option.name==='Cold, Cough') {
+    if (option.isClickable && option.name==='Cold, Cough & Fever') {
       window.location.href = 'http://localhost:5000/list-cough';
     }
     else if(option.isClickable && option.name==='Dentist'){
@@ -294,7 +294,7 @@ const ListDentist = () => {
                       </div>
                      
                       <div className="doctor-details">
-                        <h2 className="doctor-name">{doctor.name}</h2>
+                      <h2 className="doctor-name"><a href={`http://localhost:5000/doctor/${doctor.id}`}>{doctor.name}</a></h2>
                         <p className="doctor-speciality">{doctor.specialization}</p>
                         <p className="doctor-experience">{doctor.experience} years experience overall</p>
                        

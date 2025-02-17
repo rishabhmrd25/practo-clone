@@ -1,5 +1,11 @@
 const Doctor = require("../models/doctor.model.js");
 const { Op } = require("sequelize");
+const Clinic=require('../models/clinic.model.js')
+const Slot=require('..//models/slot.model.js')
+const jwt=require('jsonwebtoken')
+import axios from "axios"
+import User from "../models/user.model.js";
+const UserStory = require("../models/story.model.js");
 
 const fetchDoctors=async(req,res)=>{
     try {
@@ -82,20 +88,104 @@ const fetchDoctorsByExperience = async (req, res) => {
   }
 };
 
-const fetchDoctorById = async (req, res) => {
+const fetchDoctorsById=async(req,res)=>{
   try {
     const { id } = req.params;
-    const doctor = await Doctor.findByPk(id);
+    
+    const doctor = await Doctor.findOne({ where: { id } });
 
+    if (!doctor) {
+      console.log('No doctor found for ID:', id); // Add this debug log
+      return res.status(404).send('Doctor not found');
+    }
+    // For now, let's just send the JSON data instead of rendering
+    res.json(doctor);
+  } catch (error) {
+    console.error('Error fetching doctor:', error);
+    res.status(500).send('Server error');
+  }
+}
+
+const fetchClinicsByDoctorId = async (req, res) => {
+  try {
+    const { doctorId } = req.params;
+    
+    // Find the doctor by ID
+    const doctor = await Doctor.findOne({ where: { id: doctorId } });
+    
     if (!doctor) {
       return res.status(404).json({ message: "Doctor not found" });
     }
-
-    res.status(200).json(doctor);
+    
+    // Use the generated association method to get clinics
+    const clinics = await doctor.getClinics();
+    
+    res.status(200).json(clinics);
   } catch (error) {
-    console.error("Error fetching doctor:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    console.error("Error fetching clinics for doctor:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
-module.exports={fetchDoctors,fetchDoctorsByGender,fetchDoctorsByExperience,fetchDoctorById}
+const fetchSlots=async(req,res)=>{
+  try {
+    const { doctorId, clinicId, date } = req.query;
+    
+    const slots = await Slot.findAll({
+      where: {
+        doctorId,
+        clinicId,
+        date,
+        status: "Available" // Only get available slots
+      },
+      order: [
+        ['date', 'ASC'],
+        ['time', 'ASC']
+      ]
+    });
+
+    res.json(slots);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching slots" });
+  }
+}
+
+const fetchUserId = async (req, res) => {
+  const { token } = req.body;
+  if (!token) return res.status(400).json({ error: 'Token is required' });
+  console.log(token);
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.userId; // Extract userId from decoded token
+    const user = await User.findOne({ where: { id: userId } });
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    res.json({ userId: user.id, user }); // Send both userId and user data
+  } catch (error) {
+    res.status(401).json({ error: 'Invalid token' });
+  }
+};
+
+const fetchClinicById=async(req,res)=>{
+  const {id}=req.params;
+  console.log(id)
+  try {
+    const clinic=await Clinic.findOne({where:{id:id}});
+    res.json({clinic:clinic});
+  } catch (error) {
+    res.status(401).json({error:"Invalid id"})
+  }
+}
+const fetchUserStories = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userStories = await UserStory.findAll({ where: { doctorId: id } });
+    res.json(userStories);
+  } catch (error) {
+    console.error("Error fetching user stories:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports={fetchUserStories,fetchClinicById,fetchSlots,fetchUserId,fetchDoctors,fetchDoctorsByGender,fetchDoctorsByExperience,fetchDoctorsById,fetchClinicsByDoctorId}

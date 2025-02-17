@@ -1,13 +1,25 @@
+require("dotenv").config(); // Load .env before anything else
 const { Sequelize } = require("sequelize");
-const {ENV_VARS}=require('./envVars.js')
 
-const sequelize=new Sequelize(
-    ENV_VARS.DB_NAME,
-    ENV_VARS.DB_USER||'root',
-    ENV_VARS.DB_PASSWORD
-,{
-    host:ENV_VARS.DB_HOST || 'localhost',
-    dialect:"mysql"
-});
+console.log("DB_NAME:", process.env.DB_NAME);
+console.log("DB_USER:", process.env.DB_USER);
+console.log("DB_PASSWORD:", process.env.DB_PASSWORD ? "Loaded" : "Not Loaded");
+console.log("DB_HOST:", process.env.DB_HOST);
 
-module.exports={sequelize};
+
+
+
+
+
+
+const sequelize = new Sequelize(
+    process.env.DB_NAME,
+    process.env.DB_USER || 'root',
+    process.env.DB_PASSWORD,
+    {
+        host: process.env.DB_HOST || 'localhost',
+        dialect: "mysql"
+    }
+);
+
+module.exports = { sequelize };

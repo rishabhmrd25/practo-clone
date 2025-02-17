@@ -1,139 +1,309 @@
-/* Container */
+/* Base styles */
 .doctor-profile-container {
-    max-width: 1000px;
-    margin: auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Doctor Info Section */
-  .doctor-info {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  }
-  
-  .doctor-image-container {
-    width: 120px;
-    height: 120px;
-    margin-right: 20px;
-  }
-  
-  .doctor-image {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .doctor-details {
-    flex: 1;
-  }
-  
-  .doctor-name {
-    font-size: 22px;
-    font-weight: bold;
-  }
-  
-  .doctor-specialization {
-    font-size: 16px;
-    color: #666;
-  }
-  
-  .doctor-description {
-    margin-top: 5px;
-    font-size: 14px;
-    color: #444;
-  }
-  
-  /* Slot Booking Section */
-  .slot-section {
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  }
-  
-  .slot-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .slot-list {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  
-  .slot-button {
-    background-color: #007bff;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .slot-button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Stories Section */
-  .stories-container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .story-item {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .story-item:last-child {
-    border-bottom: none;
-  }
-  
-  .story-title {
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .story-content {
-    font-size: 14px;
-    color: #444;
-    margin-top: 5px;
-  }
-  
-  /* Tab Navigation */
-  .tab-navigation {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 10px;
-  }
-  
-  .tab-button {
-    background: none;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 5px 10px;
-  }
-  
-  .tab-button.active {
-    font-weight: bold;
-    color: #007bff;
-    border-bottom: 2px solid #007bff;
-  }
-  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f0f0f5;
+  min-height: 100vh;
+}
+
+/* Breadcrumb styles */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  color: #414146;
+  font-size: 14px;
+}
+
+.breadcrumb a {
+  color: #414146;
+  text-decoration: none;
+}
+
+.breadcrumb span {
+  color: #787887;
+}
+
+/* Profile main section */
+.profile-main {
+  display: grid;
+  grid-template-columns: 2.5fr 1.5fr;
+  gap: 24px;
+}
+
+/* Doctor basic info */
+.doctor-basic-info {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.doctor-header {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.doctor-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.doctor-name-section h1 {
+  margin: 0 0 8px 0;
+  color: #414146;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.qualifications {
+  color: #414146;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.specialty-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.specialty-tag {
+  background: #f0f4f5;
+  color: #414146;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.experience {
+  color: #787887;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.registration {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #00a500;
+  font-size: 14px;
+}
+
+/* Patient stories section */
+.patient-stories {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f5;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #414146;
+}
+
+.patient-count {
+  color: #787887;
+  font-size: 14px;
+}
+
+/* Clinic section */
+.clinic-info {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.clinic-card {
+  border: 1px solid #f0f0f5;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.clinic-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.clinic-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #414146;
+}
+
+.clinic-rating {
+  color: #414146;
+  font-size: 14px;
+}
+
+.clinic-details {
+  display: grid;
+  gap: 8px;
+  color: #787887;
+  font-size: 14px;
+}
+
+/* Appointment section */
+.profile-right {
+  position: sticky;
+  top: 24px;
+}
+
+.appointment-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.slot-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.clinic-selector {
+  background: #f8fbff;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.clinic-name-fee {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.clinic-location {
+  color: #787887;
+  font-size: 14px;
+}
+
+.consultation-fee {
+  color: #00a500;
+  font-weight: 600;
+}
+
+/* Slot selection */
+.date-selector {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  padding: 4px;
+}
+
+.date-item {
+  padding: 8px 16px;
+  border: 1px solid #dde0e3;
+  border-radius: 8px;
+  cursor: pointer;
+  min-width: 100px;
+  text-align: center;
+}
+
+.date-item.selected {
+  background: #f8fbff;
+  border-color: #14bef0;
+  color: #14bef0;
+}
+
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 12px;
+}
+
+.time-slot {
+  padding: 8px;
+  border: 1px solid #dde0e3;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.time-slot:hover {
+  background: #f8fbff;
+  border-color: #14bef0;
+  color: #14bef0;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  padding: 0 20px;
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
+  justify-content: space-between;
+}
+
+.practo-logo {
+  height: 30px;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.nav-links a:hover {
+  color: #0077b6;
+}
+
+.login-btn {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background-color: #f5f5f5;
+}

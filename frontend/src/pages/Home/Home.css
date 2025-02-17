@@ -69,65 +69,48 @@
   .location-search input {
     width: 200px;
     padding: 12px;
-    border: 1px solid #eee;
+    border: 1px solid #000000;
     border-radius: 4px;
+    background: linear-gradient(to right, #4A90E2, #FFFFFF, #cca3de);
+    
+    
+  }
+  .location-search input::placeholder {
+    color: black; /* Set placeholder text color to black */
+    opacity: 1; /* Ensure full visibility in some browsers */
   }
   
   .doctor-search input {
     width: 400px;
     padding: 12px;
-    border: 1px solid #eee;
+    border: 2px solid #000000;
     border-radius: 4px;
   }
-  
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin: 3rem 0;
+  .doctor-search input::placeholder {
+    color: black; /* Set placeholder text color to black */
+    opacity: 1; /* Ensure full visibility in some browsers */
   }
   
-  .service-card {
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
   
-  .service-card img {
-    width: 150px;
-    height: 150px;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-  }
-  
-  .service-card h3 {
-    margin: 0.5rem 0;
-    color: #414146;
-  }
-  
-  .service-card p {
-    color: #787887;
-    margin: 0;
-  }
   
   .specialties-section {
     margin: 4rem 0;
   }
   
   .section-header {
-    text-align: center;
+    text-align: left;
     margin-bottom: 3rem;
     position: relative;
   }
   
   .section-header h2 {
+    text-align: left;
     color: #414146;
     margin-bottom: 0.5rem;
   }
   
   .section-header p {
+    text-align: left; 
     color: #787887;
     margin: 0;
   }
@@ -138,6 +121,17 @@
     top: 0;
     color: #14bef0;
     text-decoration: none;
+    border: 2px solid #14bef0;  /* 🔹 Border matching text color */
+    padding: 6px 12px;  /* 🔹 Adds padding for better spacing */
+    border-radius: 6px;  /* 🔹 Rounded corners */
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* 🔹 Hover Effect */
+  .view-all:hover {
+    background-color: #14bef0;
+    color: #fff; /* Change text to white */
   }
   
   .specialties-grid {
@@ -157,13 +151,21 @@
     transform: translateY(-5px);
   }
   
+  /* 🔹 Enlarged Icon & Added Hover Shadow */
   .specialty-icon {
-    width: 80px;
-    height: 80px;
+    width: 100px;  /* Increased from 80px */
+    height: 100px; /* Increased from 80px */
     margin: 0 auto 1rem;
     border-radius: 50%;
     overflow: hidden;
     background: #f0f0f5;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+  }
+  
+  /* 🔹 Shadow effect on hover */
+  .specialty-icon:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
   }
   
   .specialty-icon img {
@@ -178,6 +180,7 @@
     margin: 0.5rem 0;
     min-height: 40px;
   }
+  
   
   .consult-btn {
     background: transparent;
@@ -335,3 +338,177 @@
   .dropdown-item.clickable .arrow-icon {
     color: #14bef0;
   }
+  .services-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin: 3rem 0;
+  }
+  
+  /* 🔹 Make tiles flexible in width */
+  .service-card {
+    flex: 0.3; /* Ensures equal width, change to flex: 0.3 for different proportions */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+  .service-card.find-doctors{
+    background-color: rgb(152, 203, 214);
+    width: 50%;
+
+  }
+  .service-card.video-consultation{
+    background-color: rgb(175, 207, 237);
+    width: 50%;
+  }
+
+  
+    .service-card.surgeries-card{
+      background-color: rgb(213, 216, 252);
+      width: 50%;
+    }  
+    
+  
+  
+  .service-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* 🔹 Image Container - Full Background Coverage */
+  .image-container {
+    width: 100%;
+    height: 180px; /* Adjust height as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* 🔹 Different Background Colors */
+  .video-consultation .image-container {
+    background-color: rgb(175, 207, 237);
+  }
+  
+  .find-doctors .image-container {
+    background-color: rgb(152, 203, 214);
+  }
+  
+  .surgeries-card .image-container {
+    background-color: rgb(213, 216, 252);
+  }
+  
+  /* 🔹 Image Styling */
+  .image-container img {
+    max-width: 90%; /* Adjust if needed */
+    height: auto;
+  }
+  
+  /* 🔹 Text Container - Full White Background */
+  .text-container {
+    background-color: white;
+    text-align: center;
+    padding: 15px;
+    width: 90%;
+    border-radius: 12px;
+  }
+  
+  .text-container h3 {
+    color: #414146;
+    margin: 0.5rem 0;
+  }
+  
+  .text-container p {
+    color: #787887;
+    margin: 0;
+  }
+  
+  /* 🔹 Responsive Design */
+  @media (max-width: 768px) {
+    .services-grid {
+      flex-direction: column;
+    }
+  
+    .service-card {
+      width: 70%;
+    }
+  }
+
+  .book-section {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  
+  .book-header {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
+  .book-header h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .book-header p {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+  .book-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .book-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .book-icon img {
+    width: 100%;
+    height: 200px; /* Fixed height to maintain uniformity */
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .book-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 15px 0 10px;
+  }
+  
+  .book-card p {
+    font-size: 14px;
+    color: #666;
+  }
+  .navhead a {
+    font-weight: bold; /* Makes the text bold */
+    text-decoration: none; /* Removes the underline */
+    color: black; /* Ensures the text color is black */
+    padding: 10px 15px; /* Adds some spacing */
+    display: inline-block; /* Ensures padding applies correctly */
+  }
+  
+  .navhead a:hover {
+    color: #007bff; /* Changes text color on hover */
+  }
+  
+  .navhead .active {
+    color: #007bff; /* Highlight the active link */
+    border-bottom: 2px solid #007bff; /* Adds an underline effect */
+  }
+  
+  
+  

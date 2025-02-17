@@ -10,7 +10,7 @@ const Story = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    userName: {
+    user_name: {  // Match the column name in the DB
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -22,11 +22,11 @@ const Story = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    doctorId: {
+    doctor_id: {  // Match the column name in the DB
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "doctors", // Use table name instead of model reference in CJS
+        model: "doctors",
         key: "id",
       },
       onDelete: "CASCADE",
@@ -34,9 +34,10 @@ const Story = sequelize.define(
   },
   {
     tableName: "stories",
-    timestamps: true, // Automatically adds createdAt & updatedAt
+    timestamps: true,
   }
 );
+
 
 // **Associations**
 Doctor.hasMany(Story, { foreignKey: "doctorId" });

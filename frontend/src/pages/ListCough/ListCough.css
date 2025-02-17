@@ -649,6 +649,18 @@ display: flex;
 gap: 20px;
 }
 
+.doctor-image-container {
+position: relative;
+width: 100px;
+height: 100px;
+}
+
+.doctor-image {
+width: 100%;
+height: 100%;
+border-radius: 50%;
+object-fit: cover;
+}
 
 .practo-badge {
 position: absolute;
@@ -744,19 +756,6 @@ color: #14bef0;
 font-size: 14px;
 cursor: pointer;
 }
-.doctor-image-container {
-  position: relative;
-  width: 150px;  /* Increased size */
-  height: 150px; /* Increased size */
-}
-
-.doctor-image {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
 
 .patient-stories:hover {
 text-decoration: underline;
