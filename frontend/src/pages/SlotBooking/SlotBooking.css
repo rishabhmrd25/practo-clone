@@ -1,0 +1,133 @@
+.slot-booking-container {
+    background: rgb(14, 14, 14);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px;
+    border: 2px solid black; /* Solid black border */
+  }
+  
+  .slot-booking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background: #14bef0; /* Blue background */
+    color: white;
+  }
+  
+  .slot-booking-header h2 {
+    font-size: 20px;
+    margin: 0;
+  }
+  
+  .consultation-fee {
+    font-weight: 500;
+    font-size: 16px;
+  }
+  
+  .clinic-info-header {
+    background: #f8fbff;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .clinic-icon {
+    font-size: 24px;
+  }
+  
+  .clinic-details h3 {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+    color: #414146;
+  }
+  
+  .clinic-details p {
+    margin: 0;
+    font-size: 14px;
+    color: #787887;
+  }
+  
+  .date-selector {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  
+  .date-button {
+    flex: 1;
+    background: white;
+    border: 2px solid #14bef0; /* Blue border */
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #14bef0; /* Blue text */
+    transition: all 0.2s;
+    text-align: center;
+  }
+  
+  .date-button.active {
+    background: #14bef0; /* Blue background when selected */
+    color: white;
+  }
+  
+  .date-button span {
+    display: block; /* Break between text */
+  }
+  
+  .day-label {
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  
+  .slot-count {
+    font-size: 12px;
+  }
+  
+  .slots-section h4 {
+    color: #414146;
+    margin: 0 0 12px 0;
+    font-size: 16px;
+  }
+  
+  .slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 12px;
+  }
+  
+  .slot-button {
+    padding: 8px;
+    border: 2px solid #14bef0; /* Blue border */
+    border-radius: 4px;
+    background: white;
+    color: #14bef0; /* Blue text */
+    font-size: 14px;
+    cursor: pointer;
+    
+  }
+  
+  .slot-button:hover {
+    background: #14bef0; /* Fill with blue */
+    color: white; /* Text turns white */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .date-selector {
+      flex-direction: column;
+    }
+    
+    .slots-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }

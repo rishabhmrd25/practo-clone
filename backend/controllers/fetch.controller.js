@@ -180,7 +180,8 @@ const fetchClinicById=async(req,res)=>{
 const fetchUserStories = async (req, res) => {
   try {
     const { id } = req.params;
-    const userStories = await UserStory.findAll({ where: { doctorId: id } });
+    console.log(id);
+    const userStories = await UserStory.findAll({ where: { doctor_id: id } });
     res.json(userStories);
   } catch (error) {
     console.error("Error fetching user stories:", error);

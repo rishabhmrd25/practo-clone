@@ -1,112 +1,119 @@
-.appointment-form {
-    width: 400px;
-    background: #f8f9fa;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  h2 {
-    margin-bottom: 15px;
-    color: #333;
-  }
-  
-  .appointment-subheading {
-    font-size: 14px;
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 10px;
-  }
-  
-  .radio-group {
-    display: flex;
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 0;
+}
+
+/* Appointment Container */
+.appointment-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 900px;
+  margin: 50px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Left Section - Booking Details */
+.booking-details {
+  width: 45%;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.booking-details h3 {
+  color: #0a66c2;
+  margin-bottom: 15px;
+}
+
+.appointment-info {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.doctor-info, .clinic-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.doctor-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+}
+
+.clinic-info {
+  background: #f0f8ff;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+}
+
+/* Right Section - Patient Details */
+.patient-details {
+  width: 50%;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.patient-details h3 {
+  color: #0a66c2;
+}
+
+.patient-details label {
+  display: block;
+  font-size: 14px;
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+.patient-details input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.patient-details input:read-only {
+  background: #f0f0f0;
+  cursor: not-allowed;
+}
+
+/* Confirm Button */
+.confirm-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #0a66c2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px;
+  transition: background 0.3s ease-in-out;
+}
+
+.confirm-btn:hover {
+  background-color: #08489c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .appointment-container {
     flex-direction: column;
-    margin-bottom: 15px;
+    width: 90%;
   }
-  
-  .radio-option {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 5px;
-  }
-  
-  .radio-option input {
-    margin-right: 10px;
-  }
-  
-  .radio-option.selected {
-    border-color: #007bff;
-    background: #e3f2fd;
-  }
-  
-  .input-label {
-    display: block;
-    font-size: 14px;
-    font-weight: bold;
-    margin: 10px 0 5px;
-  }
-  
-  .required {
-    color: red;
-  }
-  
-  .input-field {
+
+  .booking-details, .patient-details {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
   }
-  
-  .input-field.locked {
-    background: #e9ecef;
-    cursor: not-allowed;
-  }
-  
-  .checkbox-group {
-    display: flex;
-    align-items: center;
-    margin: 15px 0;
-  }
-  
-  .checkbox-group input {
-    margin-right: 10px;
-  }
-  
-  .confirm-btn {
-    width: 100%;
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .confirm-btn:hover {
-    background: #0056b3;
-  }
-  
-  .updates-info {
-    font-size: 12px;
-    color: #555;
-    margin-top: 10px;
-  }
-  
-  .terms {
-    font-size: 12px;
-    color: #555;
-    margin-top: 5px;
-  }
-  
-  .terms a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
+}

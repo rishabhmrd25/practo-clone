@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./DoctorProfile.css";
-import ClinicSelector from "../ClinicSelector/ClinicSelector.jsx";
+
+import SlotBooking from "../SlotBooking/SlotBooking.jsx"; // Import SlotBooking Component
 
 const DoctorProfile = () => {
   const { id } = useParams();
@@ -42,7 +43,7 @@ const DoctorProfile = () => {
         .then((res) => {
           setClinics(res.data);
           if (res.data.length > 0) {
-            setSelectedClinic(res.data[0]?.id); 
+            setSelectedClinic(res.data[0]?.id);
           }
         })
         .catch((err) => console.error(err))
@@ -52,6 +53,7 @@ const DoctorProfile = () => {
       axios
         .get(`http://localhost:5000/api/v1/get/user-stories/${id}`)
         .then((res) => {
+          console.log("User Stories:", res.data); // Log response data for debugging
           setUserStories(res.data); // Set the user stories from the response
         })
         .catch((err) => {
@@ -70,7 +72,11 @@ const DoctorProfile = () => {
     if (id && selectedClinic && selectedDate) {
       axios
         .get(`http://localhost:5000/api/v1/get/slots`, {
-          params: { doctorId: id, clinicId: selectedClinic, date: selectedDate },
+          params: {
+            doctorId: id,
+            clinicId: selectedClinic,
+            date: selectedDate,
+          },
         })
         .then((res) => {
           if (Array.isArray(res.data)) {
@@ -104,7 +110,8 @@ const DoctorProfile = () => {
 
   if (loading) return <div className="loading-state">Loading...</div>;
 
-  if (!doctor || error) return <div className="error-state">{error || "Doctor not found."}</div>;
+  if (!doctor || error)
+    return <div className="error-state">{error || "Doctor not found."}</div>;
 
   const { name, specialization, post, experience, description, image } = doctor;
 
@@ -123,7 +130,9 @@ const DoctorProfile = () => {
             <a href="http://localhost:5173/search">Find Doctors</a>
             <a href="#video-consult">Video Consult</a>
             <a href="#surgeries">Surgeries</a>
-            <button onClick={msgHandler} className="login-btn">{msg}</button>
+            <button onClick={msgHandler} className="login-btn">
+              {msg}
+            </button>
           </div>
         </div>
       </nav>
@@ -134,23 +143,32 @@ const DoctorProfile = () => {
           <a href="/">Home</a> &gt;
           <a href="/bangalore">Bangalore</a> &gt;
           <a href="/bangalore/dentist">Dentist</a> &gt;
-          <span>{doctor?.name || 'Doctor'}</span>
+          <span>{doctor?.name || "Doctor"}</span>
         </div>
 
         <div className="profile-main">
           <div className="profile-left">
             <div className="doctor-basic-info">
               <div className="doctor-header">
-                <img src={image || "/default-doctor.png"} alt={name} className="doctor-image" />
+                <img
+                  src={image || "/default-doctor.png"}
+                  alt={name}
+                  className="doctor-image"
+                />
                 <div className="doctor-name-section">
                   <h1>{name}</h1>
                   <div className="qualifications">{specialization}</div>
                   <div className="specialty-tags">
-                    {post && post.split(",").map((specialty, index) => (
-                      <span key={index} className="specialty-tag">{specialty.trim()}</span>
-                    ))}
+                    {post &&
+                      post.split(",").map((specialty, index) => (
+                        <span key={index} className="specialty-tag">
+                          {specialty.trim()}
+                        </span>
+                      ))}
                   </div>
-                  <div className="experience">{experience} Years Experience Overall</div>
+                  <div className="experience">
+                    {experience} Years Experience Overall
+                  </div>
                   <div className="registration">
                     <span>✓</span> Medical Registration Verified
                   </div>
@@ -169,7 +187,9 @@ const DoctorProfile = () => {
                   </div>
                   <div className="clinic-details">
                     <div>
-                      <strong>Timings:</strong> {clinic.workingDays} ({formatTime(clinic.openingTime)} - {formatTime(clinic.closingTime)})
+                      <strong>Timings:</strong> {clinic.workingDays} (
+                      {formatTime(clinic.openingTime)} -{" "}
+                      {formatTime(clinic.closingTime)})
                     </div>
                     <div>
                       <strong>Consultation Fee:</strong> ₹{clinic.fee}
@@ -187,7 +207,11 @@ const DoctorProfile = () => {
                 <div className="user-stories-list">
                   {userStories.map((story, index) => (
                     <div key={index} className="user-story">
-                      <p><strong>{story.userName}:</strong> {story.story}</p>
+                      <div className="story-user-name">
+                        <strong>{story.user_name}</strong>
+                      </div>
+                      <div className="story-title">{story.title}</div>
+                      <div className="story-content">{story.content}</div>
                     </div>
                   ))}
                 </div>
@@ -198,8 +222,9 @@ const DoctorProfile = () => {
           </div>
 
           <div className="profile-right">
-            <ClinicSelector
-              clinic={clinics.find(c => c.id === selectedClinic)}
+            {/* Slot Booking Section */}
+            <SlotBooking
+              clinic={clinics.find((c) => c.id === selectedClinic)}
               slots={slots}
               selectedDate={selectedDate}
               onDateChange={setSelectedDate}

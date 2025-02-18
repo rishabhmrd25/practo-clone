@@ -1,105 +1,133 @@
 import React, { useEffect, useState } from "react";
-import "./AppointmentForm.css";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./AppointmentForm.css";
 
-const AppointmentForm = ({ user,clinic,doctor,slotId}) => {
-  const [patientType, setPatientType] = useState("self");
-  const [fullName, setFullName] = useState(user?.name || "");  
-  const [mobile, setMobile] = useState("+911234567890");  
-  const [email, setEmail] = useState(user?.email || "");  
-  const [whatsappUpdates, setWhatsappUpdates] = useState(true);
+const AppointmentForm = ({ user }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const { clinic, doctor, selectedDate, slotId, slotTime } = location.state || {};
+
+  const [fullName, setFullName] = useState(user?.name || "");
+  const [mobile, setMobile] = useState(user?.mobile || "+911234567890");
+  const [email, setEmail] = useState(user?.email || "");
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    if (patientType === "self") {
-      setFullName(user?.name || "");
-      setEmail(user?.email || "");
-    } else {
-      setFullName("");
-      setEmail("");
+    if (!clinic || !doctor) {
+      setError("Missing clinic or doctor information");
     }
-  }, [patientType, user]);
+  }, [clinic, doctor]);
 
-  const onClickHandler=async()=>{
-    console.log(user?.id,Number(slotId),doctor?.id,clinic?.id,clinic?.fee)
-    const data={
-        userId:user?.id,
-        slotId:Number(slotId),
-        doctorId:doctor?.id,
-        clinicId:clinic?.id,
-        fee:clinic?.fee
+  const handlePayment = async () => {
+    try {
+      const { data } = await axios.post("http://localhost:5000/api/v1/checkout/booking", {
+        amount: 1000, // Example amount
+        clinicId: "clinicId", // Example
+        doctorId: "doctorId", // Example
+        appointmentDate: "2025-02-20", // Example date
+        slotTime: "10:00 AM", // Example time
+      });
+  
+      // Check if the response contains the expected data
+      if (data && data.orderId) {
+        const options = {
+          key: "rzp_test_tcw7K00n3n9dSW", // Razorpay key
+          amount: data.amount,
+          currency: "INR",
+          order_id: data.orderId, // Use orderId safely
+          handler: async function (response) {
+            try {
+              // Payment verification logic
+            } catch (error) {
+              console.error("Payment verification failed:", error);
+            }
+          },
+          prefill: {
+            name: fullName,
+            email: email,
+            contact: mobile,
+          },
+          theme: {
+            color: "#3399cc",
+          },
+        };
+  
+        if (window.Razorpay) {
+          const paymentWindow = new Razorpay(options);
+          paymentWindow.open();
+        } else {
+          console.error("Razorpay script is not loaded");
+        }
+      } else {
+        console.error("Missing order details in response");
+      }
+    } catch (error) {
+      console.error("Payment Error:", error);
+      setError("Failed to initialize payment. Please try again.");
     }
-
-    const response=await axios.post('http://localhost:5000/api/v1/checkout/booking',{data});
-    window.location.href=response.data.url;
-  }
-
+  };
+  
   return (
-    <div className="appointment-form">
-      <h2>Patient Details</h2>
-      <p className="appointment-subheading">This in-clinic appointment is for:</p>
+    <div className="appointment-container">
+      {error && <div className="error-message">{error}</div>}
+      
+      <div className="booking-details">
+        <h3>🩺 In-clinic Appointment</h3>
+        <div className="appointment-info">
+          📅 <b>{selectedDate || "N/A"}</b> | ⏰ <b>{slotTime || "N/A"}</b>
+        </div>
 
-      <div className="radio-group">
-        <label className={`radio-option ${patientType === "self" ? "selected" : ""}`}>
-          <input
-            type="radio"
-            name="patientType"
-            checked={patientType === "self"}
-            onChange={() => setPatientType("self")}
-          />
-          {user?.name}
-        </label>
-        <label className={`radio-option ${patientType === "other" ? "selected" : ""}`}>
-          <input
-            type="radio"
-            name="patientType"
-            checked={patientType === "other"}
-            onChange={() => setPatientType("other")}
-          />
-          Someone Else
-        </label>
+        {doctor && (
+          <div className="doctor-info">
+            <img src={doctor.image} alt={doctor.name} className="doctor-image" />
+            <h4>{doctor.name}</h4>
+            <p>{doctor.specialization}</p>
+          </div>
+        )}
+
+        {clinic && (
+          <div className="clinic-info">
+            <h4>🏥 <b>{clinic.name}</b></h4>
+            <p>{clinic.location}</p> {/* Changed from clinic.address */}
+            <p>⏰ {clinic.openingTime} - {clinic.closingTime}</p>
+            <p>📅 Working Days: {clinic.workingDays}</p>
+            <p>⭐ Rating: {clinic.rating}</p>
+            <p>💰 Consultation Fee: ₹{clinic.fee}</p>
+          </div>
+        )}
       </div>
 
-      <p className="appointment-subheading">Please provide the following information about {fullName || "the patient"}:</p>
-
-      <label className="input-label">Full Name<span className="required">*</span></label>
-      <input
-        type="text"
-        value={fullName}
-        onChange={(e) => setFullName(e.target.value)}
-        className="input-field"
-      />
-
-      <label className="input-label">Mobile<span className="required">*</span></label>
-      <input
-        type="text"
-        value={mobile}
-        readOnly
-        className="input-field locked"
-      />
-
-      <label className="input-label">Your Email</label>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="input-field"
-      />
-
-      <div className="checkbox-group">
-        <input
-          type="checkbox"
-          checked={whatsappUpdates}
-          onChange={() => setWhatsappUpdates(!whatsappUpdates)}
+      <div className="patient-details">
+        <h3>Patient Details</h3>
+        <label>Full Name</label>
+        <input 
+          type="text" 
+          value={fullName} 
+          onChange={(e) => setFullName(e.target.value)}
+          required 
         />
-        <span> Get updates on WhatsApp number {mobile}</span>
+
+        <label>Mobile</label>
+        <input type="text" value={mobile} readOnly />
+
+        <label>Email</label>
+        <input 
+          type="email" 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)}
+          required 
+        />
+
+        <button 
+          onClick={handlePayment} 
+          className="confirm-btn"
+          disabled={!fullName || !email}
+        >
+          Confirm Clinic Visit - Pay ₹{clinic?.fee}
+        </button>
       </div>
-
-      <button onClick={onClickHandler} className="confirm-btn">Confirm Clinic Visit</button>
-
-      <p className="updates-info">1. Updates will be sent to {mobile}</p>
-      <p className="terms">
-        By booking this appointment, you agree to Practo’s <a href="#">Terms and Conditions</a>.
-      </p>
     </div>
   );
 };
